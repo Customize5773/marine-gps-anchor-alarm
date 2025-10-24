@@ -269,12 +269,6 @@ After completing wiring:
 5. ✅ Configure WiFi/Bluetooth settings
 6. ✅ Install in waterproof enclosure
 
-## Additional Resources
-
-- [ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/)
-- [NEO-6M GPS Datasheet](https://www.u-blox.com/en/product/neo-6-series)
-- [Fritzing Diagram](./fritzing-diagram.png) - Visual wiring diagram (if available)
-
 ---
 **Last Updated:** October 24, 2025  
 **Tested With:** ESP32 DevKit V1, NEO-6M GPS, 5V Active Buzzer
