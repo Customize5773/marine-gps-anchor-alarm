@@ -4,7 +4,7 @@
 #include <HTTPClient.h>
 #include <BluetoothSerial.h>
 
-// ===== USER CONFIGURATION =====
+// USER CONFIGURATION
 const char* WIFI_SSID     = "YOUR_WIFI_SSID";
 const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";
 const char* IFTTT_URL     = "https://maker.ifttt.com/trigger/boat_drift_alert/with/key/YOUR_IFTTT_KEY";
@@ -19,9 +19,9 @@ const float ALARM_RADIUS_METERS = 50.0;   // Drift threshold
 #define BUZZER_CHANNEL 0
 #define BUZZER_FREQUENCY 2000
 
-// ===== OBJECTS & VARIABLES =====
+// OBJECTS & VARIABLES
 TinyGPSPlus gps;
-HardwareSerial gpsSerial(2);       // Use UART2 for GPS
+HardwareSerial gpsSerial(2);     // Use UART2 for GPS
 BluetoothSerial SerialBT;
 
 double anchorLat = 0.0;
@@ -32,7 +32,7 @@ unsigned long lastGPSCheck = 0;
 unsigned long lastAlarmCheck = 0;
 int notificationMethod = 0; // 0=WiFi, 1=Bluetooth, 2=IFTTT
 
-// ===== FUNCTION PROTOTYPES =====
+// FUNCTION PROTOTYPES
 void setupWiFi();
 void setupBluetooth();
 void setupBuzzer();
@@ -46,7 +46,7 @@ void sendWiFiNotification(float distance);
 void sendBluetoothNotification(float distance);
 void sendIFTTTNotification(float distance);
 
-// ===== SETUP =====
+// SETUP
 void setup() {
   Serial.begin(115200);
   gpsSerial.begin(9600, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
@@ -104,7 +104,7 @@ void loop() {
   }
 }
 
-// ===== SETUP UTILS =====
+// SETUP UTILS
 void setupWiFi() {
   Serial.print("Connecting WiFi: "); Serial.println(WIFI_SSID);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -128,7 +128,7 @@ void setupBuzzer() {
   ledcAttachPin(BUZZER_PIN, BUZZER_CHANNEL);
 }
 
-// ===== ANCHOR ==========
+// ANCHOR
 void setAnchorPosition() {
   if (gps.location.isValid()) {
     anchorLat = gps.location.lat();
@@ -141,7 +141,7 @@ void setAnchorPosition() {
   }
 }
 
-// ===== DISTANCE CALCULATION ======
+// DISTANCE CALCULATION
 float calculateDistance(double lat1, double lon1, double lat2, double lon2) {
   // Haversine formula
   const float R = 6371000.0;
@@ -153,7 +153,7 @@ float calculateDistance(double lat1, double lon1, double lat2, double lon2) {
   return R * c;
 }
 
-// ===== DRIFT CHECK =====
+// DRIFT CHECK
 void checkDrift() {
   double currLat = gps.location.lat();
   double currLon = gps.location.lng();
@@ -169,7 +169,7 @@ void checkDrift() {
   }
 }
 
-// ===== ALARM LOGIC =====
+// ALARM LOGIC
 void activateAlarm(float distance) {
   alarmActive = true;
   Serial.println("\n!!! DRIFT ALARM !!!");
@@ -192,7 +192,7 @@ void soundBuzzer(int duration) {
   ledcWriteTone(BUZZER_CHANNEL, 0);
 }
 
-// ===== NOTIFICATIONS ======
+// NOTIFICATIONS
 void sendWiFiNotification(float distance) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
